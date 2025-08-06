@@ -535,21 +535,21 @@ const MembershipTopUpModal = ({
   };
 
   const handleContinue = () => {
-    console.log(`Creating pending transaction for $${topUpAmount.toFixed(2)} and showing deposit address...`);
+    console.log(`Creating pending transaction for $${topUpAmount.toFixed(2)} and showing wallet address...`);
     handleClose();
   };
 
   const steps = [
     {
       icon: <WalletIcon size={iconSize} />,
-      title: "Get Your Deposit Address",
+      title: "Reveal Your Wallet Address",
       description:
-        "A permanent address that doubles as your personal TRW Wallet.",
+        "This permanent address is your personal TRW Wallet for all future use.",
     },
     {
       icon: <ZapIcon size={iconSize} />,
-      title: "Send Crypto",
-      description: `Deposit at least $${topUpAmount.toFixed(2)} from your exchange or external wallet.`,
+      title: "Deposit to Your Wallet",
+      description: `Send at least $${topUpAmount.toFixed(2)} from an exchange or another wallet.`,
     },
     {
       icon: <CheckCircleIcon size={iconSize} />,
@@ -573,12 +573,12 @@ const MembershipTopUpModal = ({
               )}
               <h2 style={styles.title}>
                 {view === "main"
-                  ? "Confirm Your Crypto Payment"
-                  : "How Crypto Payments Work"}
+                  ? "Confirm Your Top-Up"
+                  : "How Wallet Payments Work"}
               </h2>
               <p style={styles.subtitle}>
                 {view === "main"
-                  ? `Pay $${topUpAmount.toFixed(2)} for ${topUpDuration} membership.`
+                  ? "Follow the steps below to complete your top-up."
                   : "Answering your questions about the deposit process."}
               </p>
             </div>
@@ -631,7 +631,7 @@ const MembershipTopUpModal = ({
                 style={{ ...styles.button, ...styles.primaryButton }}
                 onClick={handleContinue}
               >
-                Get Deposit Address
+                Show My Wallet Address
                 <ArrowRightIcon />
               </button>
             </>
