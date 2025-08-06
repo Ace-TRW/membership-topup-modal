@@ -1,19 +1,135 @@
 import React, { useState, useEffect } from "react";
-import {
-  Wallet,
-  ArrowRight,
-  CheckCircle,
-  X,
-  Zap,
-  Unlock,
-  Check,
-  ArrowLeft,
-} from "lucide-react";
+
+// Icon Components (inline SVG - zero external dependencies)
+const WalletIcon = ({ size = 24, color = "#94a3b8" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+  </svg>
+);
+
+const ZapIcon = ({ size = 24, color = "#94a3b8" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+);
+
+const CheckCircleIcon = ({ size = 24, color = "#94a3b8" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+    <polyline points="22 4 12 14.01 9 11.01" />
+  </svg>
+);
+
+const XIcon = ({ size = 18, color = "#64748b" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const UnlockIcon = ({ size = 20, color = "#a855f7" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+  </svg>
+);
+
+const CheckIcon = ({ size = 16, color = "#10b981" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const ArrowRightIcon = ({ size = 18, color = "currentColor" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
+
+const ArrowLeftIcon = ({ size = 18, color = "currentColor" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+);
 
 const MembershipTopUpModal = () => {
-  // For demonstration. In production, use props: ({ isOpen, onClose })
   const [isVisible, setIsVisible] = useState(true);
-  const [view, setView] = useState("main"); // 'main' or 'faq'
+  const [view, setView] = useState("main");
   const [isMobile, setIsMobile] = useState(false);
   const [isSmallMobile, setIsSmallMobile] = useState(false);
 
@@ -70,6 +186,22 @@ const MembershipTopUpModal = () => {
     titleGroup: {
       flex: 1,
       paddingRight: "16px",
+    },
+    badge: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
+      padding: "4px 10px",
+      backgroundColor: "rgba(240, 184, 108, 0.15)",
+      borderRadius: "8px",
+      marginBottom: isMobile ? "8px" : "12px",
+    },
+    badgeText: {
+      fontSize: "12px",
+      fontWeight: "600",
+      color: "#f0b86c",
+      textTransform: "uppercase",
+      letterSpacing: "0.5px",
     },
     title: {
       fontSize: isMobile ? "20px" : "24px",
@@ -205,14 +337,6 @@ const MembershipTopUpModal = () => {
     faqSection: {
       marginBottom: isMobile ? "24px" : "32px",
     },
-    faqSectionTitle: {
-      fontSize: "12px",
-      fontWeight: "600",
-      color: "#f0b86c",
-      textTransform: "uppercase",
-      letterSpacing: "0.5px",
-      marginBottom: isMobile ? "12px" : "16px",
-    },
     faqItem: {
       marginBottom: isMobile ? "20px" : "24px",
     },
@@ -270,32 +394,15 @@ const MembershipTopUpModal = () => {
         ))}
       </div>
       <div style={styles.infoBox}>
-        <Unlock
-          size={20}
-          color="#a855f7"
-          style={{ flexShrink: 0, marginTop: "2px" }}
-        />
+        <div style={{ flexShrink: 0, marginTop: "2px" }}>
+          <UnlockIcon size={20} />
+        </div>
         <div>
           <p style={styles.infoText}>
             Your deposit address is now your TRW Wallet. You can{" "}
             <span style={styles.highlight}>optionally activate it</span> anytime
-            to:
+            to access your balance and enable future one-click extensions.
           </p>
-          <ul
-            style={{
-              margin: "8px 0 0 0",
-              paddingLeft: "20px",
-              fontSize: isMobile ? "12px" : "13px",
-              color: "#94a3b8",
-              lineHeight: "1.6",
-            }}
-          >
-            <li style={{ marginBottom: "4px" }}>Access your remaining balance</li>
-            <li>
-              Enable one-click extensions via{" "}
-              <span style={{ fontWeight: "600" }}>Send → Extend</span>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -304,104 +411,63 @@ const MembershipTopUpModal = () => {
   const FaqView = () => (
     <div style={styles.view}>
       <div style={styles.faqSection}>
-        <h3 style={styles.faqSectionTitle}>The Basics</h3>
+        <div style={styles.faqItem}>
+          <p style={styles.faqQuestion}>What if I change my mind?</p>
+          <p style={styles.faqAnswer}>
+            When you proceed, a pending top-up is created. If you don't deposit,
+            you can cancel it anytime from your wallet's "Transactions" list. No
+            funds are committed until you send them.
+          </p>
+        </div>
         <div style={styles.faqItem}>
           <p style={styles.faqQuestion}>
             What happens if I send more than the membership fee?
           </p>
           <p style={styles.faqAnswer}>
-            We only deduct the exact membership fee. Any extra funds are safely
+            We only deduct the exact discounted fee. Any extra funds are safely
             stored as your initial TRW Wallet balance. You can access them
             anytime after activating your wallet.
           </p>
         </div>
         <div style={styles.faqItem}>
-          <p style={styles.faqQuestion}>
-            What's the difference between this deposit and a full wallet?
-          </p>
-          <p style={styles.faqAnswer}>
-            This deposit is a "guest checkout" to get you extended fast.
-            Activating the full wallet is an optional next step that gives you
-            control to send, receive, and manage your balance.
-          </p>
-        </div>
-        <div style={styles.faqItem}>
-          <p style={styles.faqQuestion}>
-            What if I get the address but change my mind?
-          </p>
-          <p style={styles.faqAnswer}>
-            Nothing happens. The deposit address is yours permanently, but it
-            remains inactive until you send funds to it. There's no penalty or
-            pending transaction to cancel.
-          </p>
-        </div>
-      </div>
-
-      <div style={styles.faqSection}>
-        <h3 style={styles.faqSectionTitle}>Security & Fees</h3>
-        <div style={styles.faqItem}>
-          <p style={styles.faqQuestion}>Is my money safe in this wallet?</p>
-          <p style={styles.faqAnswer}>
-            Yes. Your TRW Wallet is a{" "}
-            <span style={{ color: "#10b981", fontWeight: "600" }}>
-              self-custodial
-            </span>{" "}
-            wallet. This means you, and only you, have control over your funds via
-            your security credentials. We can never access or move your crypto.
-          </p>
-        </div>
-        <div style={styles.faqItem}>
-          <p style={styles.faqQuestion}>
-            Are there any hidden fees for this top-up?
-          </p>
+          <p style={styles.faqQuestion}>Are there any hidden fees?</p>
           <p style={styles.faqAnswer}>
             TRW charges{" "}
             <span style={{ color: "#f0b86c", fontWeight: "600" }}>
               zero fees
             </span>{" "}
-            for this deposit. You will only pay the standard network fee to send
-            crypto from your external exchange or wallet. As a courtesy, we also
-            credit your account with the one-time wallet activation fee.
+            for this deposit. You only pay the standard network fee from your
+            external wallet. We also credit your account for the one-time wallet
+            activation fee.
           </p>
         </div>
-      </div>
-
-      <div style={styles.faqSection}>
-        <h3 style={styles.faqSectionTitle}>The Full Wallet</h3>
         <div style={styles.faqItem}>
           <p style={styles.faqQuestion}>
             What are the benefits of activating the full wallet?
           </p>
-          <p style={styles.faqAnswer}>Full activation unlocks all features:</p>
           <ul style={styles.benefitsList}>
             <li style={styles.benefitItem}>
-              <Check
-                size={16}
-                color="#10b981"
-                style={{ flexShrink: 0, marginTop: "4px" }}
-              />
+              <div style={{ flexShrink: 0, marginTop: "4px" }}>
+                <CheckIcon size={16} />
+              </div>
               <div>
                 <span style={styles.benefitTitle}>One-click extensions:</span>{" "}
-                Renew your membership instantly from your wallet balance.
+                Renew instantly from your wallet balance.
               </div>
             </li>
             <li style={styles.benefitItem}>
-              <Check
-                size={16}
-                color="#10b981"
-                style={{ flexShrink: 0, marginTop: "4px" }}
-              />
+              <div style={{ flexShrink: 0, marginTop: "4px" }}>
+                <CheckIcon size={16} />
+              </div>
               <div>
                 <span style={styles.benefitTitle}>Send funds:</span> Instantly
                 send crypto to other TRW members.
               </div>
             </li>
             <li style={styles.benefitItem}>
-              <Check
-                size={16}
-                color="#10b981"
-                style={{ flexShrink: 0, marginTop: "4px" }}
-              />
+              <div style={{ flexShrink: 0, marginTop: "4px" }}>
+                <CheckIcon size={16} />
+              </div>
               <div>
                 <span style={styles.benefitTitle}>Full control:</span> Manage your
                 balance and view transaction history.
@@ -415,32 +481,31 @@ const MembershipTopUpModal = () => {
 
   const handleClose = () => {
     setIsVisible(false);
-    // In production, you'd call: onClose();
-    setTimeout(() => setView("main"), 300); // Reset view after closing
+    setTimeout(() => setView("main"), 300);
   };
 
   const handleContinue = () => {
-    console.log("Proceeding to show deposit address...");
-    handleClose(); // Example: close modal on continue
+    console.log("Creating pending transaction and showing deposit address...");
+    handleClose();
   };
 
   const steps = [
     {
-      icon: <Wallet size={iconSize} color="#94a3b8" />,
+      icon: <WalletIcon size={iconSize} />,
       title: "Get Your Deposit Address",
       description:
         "A permanent address that doubles as your personal TRW Wallet.",
     },
     {
-      icon: <Zap size={iconSize} color="#94a3b8" />,
+      icon: <ZapIcon size={iconSize} />,
       title: "Send Any Amount of Crypto",
       description: "Deposit funds from your exchange or external wallet.",
     },
     {
-      icon: <CheckCircle size={iconSize} color="#94a3b8" />,
+      icon: <CheckCircleIcon size={iconSize} />,
       title: "Membership Extended Instantly",
       description:
-        "We auto-deduct the fee. Extra funds are stored as your wallet balance.",
+        "We auto-deduct the 10% discounted fee. Extra funds are stored as your wallet balance.",
     },
   ];
 
@@ -452,6 +517,11 @@ const MembershipTopUpModal = () => {
         <div style={styles.header}>
           <div style={styles.headerContent}>
             <div style={styles.titleGroup}>
+              {view === "main" && (
+                <div style={styles.badge}>
+                  <span style={styles.badgeText}>SAVE 10% WITH CRYPTO</span>
+                </div>
+              )}
               <h2 style={styles.title}>
                 {view === "main"
                   ? "Extend with a Simple Deposit"
@@ -475,7 +545,7 @@ const MembershipTopUpModal = () => {
                   "rgba(255, 255, 255, 0.05)")
               }
             >
-              <X size={18} color="#64748b" />
+              <XIcon />
             </button>
           </div>
         </div>
@@ -513,7 +583,7 @@ const MembershipTopUpModal = () => {
                 onClick={handleContinue}
               >
                 Show My Deposit Address
-                <ArrowRight size={18} />
+                <ArrowRightIcon />
               </button>
             </>
           ) : (
@@ -521,7 +591,7 @@ const MembershipTopUpModal = () => {
               style={{ ...styles.button, ...styles.secondaryButton, flex: 1 }}
               onClick={() => setView("main")}
             >
-              <ArrowLeft size={18} />
+              <ArrowLeftIcon />
               Back to Deposit Steps
             </button>
           )}
