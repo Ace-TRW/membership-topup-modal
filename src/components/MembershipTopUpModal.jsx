@@ -15,22 +15,25 @@ const MembershipTopUpModal = () => {
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
       backdropFilter: 'blur(10px)',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
       zIndex: 1000,
-      padding: '20px',
+      padding: '0',
+      overflowY: 'auto',
     },
     modal: {
       backgroundColor: '#0f1318',
-      borderRadius: '24px',
+      borderRadius: window.innerWidth <= 768 ? '0' : '24px',
       maxWidth: '520px',
       width: '100%',
+      minHeight: window.innerWidth <= 768 ? '100vh' : 'auto',
       border: '1px solid rgba(255, 255, 255, 0.1)',
       overflow: 'hidden',
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+      margin: window.innerWidth <= 768 ? '0' : '20px auto',
     },
     header: {
-      padding: '24px 24px 20px',
+      padding: window.innerWidth <= 768 ? '20px 16px 16px' : '24px 24px 20px',
       borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       display: 'flex',
       justifyContent: 'space-between',
@@ -46,7 +49,7 @@ const MembershipTopUpModal = () => {
       padding: '4px 10px',
       backgroundColor: 'rgba(240, 184, 108, 0.15)',
       borderRadius: '8px',
-      marginBottom: '12px',
+      marginBottom: window.innerWidth <= 768 ? '8px' : '12px',
     },
     badgeText: {
       fontSize: '12px',
@@ -56,7 +59,7 @@ const MembershipTopUpModal = () => {
       letterSpacing: '0.5px',
     },
     title: {
-      fontSize: '24px',
+      fontSize: window.innerWidth <= 768 ? '20px' : '24px',
       fontWeight: '700',
       color: '#ffffff',
       marginBottom: '8px',
@@ -79,15 +82,15 @@ const MembershipTopUpModal = () => {
       transition: 'all 0.2s',
     },
     content: {
-      padding: '24px',
+      padding: window.innerWidth <= 768 ? '16px' : '24px',
     },
     stepsContainer: {
       marginBottom: '24px',
     },
     step: {
       display: 'flex',
-      gap: '16px',
-      marginBottom: '20px',
+      gap: window.innerWidth <= 768 ? '12px' : '16px',
+      marginBottom: window.innerWidth <= 768 ? '16px' : '20px',
       opacity: 0.5,
       transition: 'all 0.3s ease',
     },
@@ -98,9 +101,9 @@ const MembershipTopUpModal = () => {
       opacity: 0.7,
     },
     stepIcon: {
-      width: '48px',
-      height: '48px',
-      borderRadius: '12px',
+      width: window.innerWidth <= 768 ? '40px' : '48px',
+      height: window.innerWidth <= 768 ? '40px' : '48px',
+      borderRadius: window.innerWidth <= 768 ? '10px' : '12px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -124,29 +127,29 @@ const MembershipTopUpModal = () => {
       flex: 1,
     },
     stepTitle: {
-      fontSize: '16px',
+      fontSize: window.innerWidth <= 768 ? '15px' : '16px',
       fontWeight: '600',
       color: '#ffffff',
       marginBottom: '4px',
     },
     stepDescription: {
-      fontSize: '13px',
+      fontSize: window.innerWidth <= 768 ? '12px' : '13px',
       color: '#64748b',
       lineHeight: '1.4',
     },
     connector: {
       width: '2px',
-      height: '20px',
+      height: window.innerWidth <= 768 ? '16px' : '20px',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      marginLeft: '23px',
-      marginTop: '-20px',
+      marginLeft: window.innerWidth <= 768 ? '19px' : '23px',
+      marginTop: window.innerWidth <= 768 ? '-16px' : '-20px',
       marginBottom: '0',
     },
     infoBox: {
       backgroundColor: 'rgba(59, 130, 246, 0.1)',
       borderRadius: '12px',
-      padding: '16px',
-      marginBottom: '24px',
+      padding: window.innerWidth <= 768 ? '14px' : '16px',
+      marginBottom: window.innerWidth <= 768 ? '16px' : '24px',
       border: '1px solid rgba(59, 130, 246, 0.2)',
     },
     infoBoxHeader: {
@@ -170,17 +173,18 @@ const MembershipTopUpModal = () => {
       fontWeight: '600',
     },
     footer: {
-      padding: '20px 24px',
+      padding: window.innerWidth <= 768 ? '16px' : '20px 24px',
       borderTop: '1px solid rgba(255, 255, 255, 0.05)',
       display: 'flex',
-      gap: '12px',
+      gap: window.innerWidth <= 768 ? '8px' : '12px',
+      flexDirection: window.innerWidth <= 480 ? 'column' : 'row',
     },
     button: {
       flex: 1,
-      padding: '14px 24px',
+      padding: window.innerWidth <= 768 ? '12px 20px' : '14px 24px',
       borderRadius: '12px',
       border: 'none',
-      fontSize: '15px',
+      fontSize: window.innerWidth <= 768 ? '14px' : '15px',
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.2s',
@@ -188,6 +192,7 @@ const MembershipTopUpModal = () => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '8px',
+      width: window.innerWidth <= 480 ? '100%' : 'auto',
     },
     primaryButton: {
       backgroundColor: '#f0b86c',
@@ -200,27 +205,29 @@ const MembershipTopUpModal = () => {
     },
   };
 
+  const iconSize = window.innerWidth <= 768 ? 20 : 24;
+  
   const steps = [
     {
-      icon: <Wallet size={24} color="#f0b86c" />,
+      icon: <Wallet size={iconSize} color="#f0b86c" />,
       title: 'Add funds to your TRW Wallet',
       description: 'Deposit crypto to your wallet using any supported network',
       status: currentStep >= 0 ? 'active' : 'default',
     },
     {
-      icon: <Zap size={24} color="#f0b86c" />,
+      icon: <Zap size={iconSize} color="#f0b86c" />,
       title: 'Wallet activation',
       description: 'We\'ll cover the network fee and activate your wallet instantly',
       status: currentStep >= 1 ? 'active' : 'default',
     },
     {
-      icon: <CreditCard size={24} color="#f0b86c" />,
+      icon: <CreditCard size={iconSize} color="#f0b86c" />,
       title: 'Automatic membership extension',
       description: 'Your membership will be extended immediately',
       status: currentStep >= 2 ? 'active' : 'default',
     },
     {
-      icon: <Gift size={24} color="#10b981" />,
+      icon: <Gift size={iconSize} color="#10b981" />,
       title: 'Activation fee credited back',
       description: 'The activation fee will be returned to your wallet as a courtesy',
       status: currentStep >= 3 ? 'active' : 'default',
@@ -283,7 +290,7 @@ const MembershipTopUpModal = () => {
                     }}
                   >
                     {step.status === 'completed' ? (
-                      <CheckCircle size={24} color="#10b981" />
+                      <CheckCircle size={iconSize} color="#10b981" />
                     ) : (
                       step.icon
                     )}
