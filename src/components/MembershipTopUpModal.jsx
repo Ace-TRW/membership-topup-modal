@@ -400,8 +400,22 @@ const MembershipTopUpModal = () => {
         <div>
           <p style={styles.infoText}>
             After your deposit,{" "}
-            <span style={styles.highlight}>activate your full wallet</span> to
-            unlock your remaining balance and enable future one-click extensions.
+            <a 
+              href="#activate-wallet" 
+              style={{
+                ...styles.highlight,
+                textDecoration: 'underline',
+                cursor: 'pointer',
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("Navigate to wallet activation");
+                // In production, this would navigate to the wallet section
+              }}
+            >
+              activate your full wallet
+            </a>{" "}
+            to unlock your remaining balance and enable future one-click extensions.
           </p>
         </div>
       </div>
