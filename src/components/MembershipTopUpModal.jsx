@@ -399,9 +399,9 @@ const MembershipTopUpModal = () => {
         </div>
         <div>
           <p style={styles.infoText}>
-            Your deposit address is now your TRW Wallet. You can{" "}
-            <span style={styles.highlight}>optionally activate it</span> anytime
-            to access your balance and enable future one-click extensions.
+            After your deposit,{" "}
+            <span style={styles.highlight}>activate your full wallet</span> to
+            unlock your remaining balance and enable future one-click extensions.
           </p>
         </div>
       </div>
@@ -442,8 +442,17 @@ const MembershipTopUpModal = () => {
           </p>
         </div>
         <div style={styles.faqItem}>
+          <p style={styles.faqQuestion}>How do I activate the full wallet?</p>
+          <p style={styles.faqAnswer}>
+            After your membership is extended, visit the 'Wallet' section in TRW.
+            You'll be guided through a one-time security setup (creating a PIN and
+            saving your recovery phrase). Once complete, your wallet is fully
+            active.
+          </p>
+        </div>
+        <div style={styles.faqItem}>
           <p style={styles.faqQuestion}>
-            What are the benefits of activating the full wallet?
+            What are the benefits of full activation?
           </p>
           <ul style={styles.benefitsList}>
             <li style={styles.benefitItem}>
