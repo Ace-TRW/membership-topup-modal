@@ -127,8 +127,13 @@ const ArrowLeftIcon = ({ size = 18, color = "currentColor" }) => (
   </svg>
 );
 
-const MembershipTopUpModal = () => {
-  const [isVisible, setIsVisible] = useState(true);
+const MembershipTopUpModal = ({ 
+  isOpen = true, 
+  onClose, 
+  topUpAmount = 275.42, 
+  topUpDuration = "6 months, 20 days",
+  discountPercentage = "15.00"
+}) => {
   const [view, setView] = useState("main");
   const [isMobile, setIsMobile] = useState(false);
   const [isSmallMobile, setIsSmallMobile] = useState(false);
@@ -373,7 +378,26 @@ const MembershipTopUpModal = () => {
 
   const iconSize = isMobile ? 20 : 24;
 
-  const MainView = ({ steps }) => (
+  const PricingBox = ({ price, duration }) => (
+    <div style={{
+      padding: '20px 0',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+      marginBottom: '20px',
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        fontSize: isMobile ? '15px' : '16px',
+        fontWeight: '700',
+      }}>
+        <span style={{ color: '#ffffff' }}>Top-up for {duration}</span>
+        <span style={{ color: '#f0b86c' }}>${price.toFixed(2)}</span>
+      </div>
+    </div>
+  );
+
+  const MainView = ({ steps, price, duration }) => (
     <div style={styles.view}>
       <div style={styles.stepsContainer}>
         <div style={styles.connector}></div>
@@ -393,6 +417,9 @@ const MembershipTopUpModal = () => {
           </div>
         ))}
       </div>
+      
+      <PricingBox price={price} duration={duration} />
+      
       <div style={styles.infoBox}>
         <div style={{ flexShrink: 0, marginTop: "2px" }}>
           <UnlockIcon size={20} />
@@ -503,12 +530,12 @@ const MembershipTopUpModal = () => {
   );
 
   const handleClose = () => {
-    setIsVisible(false);
+    if (onClose) onClose();
     setTimeout(() => setView("main"), 300);
   };
 
   const handleContinue = () => {
-    console.log("Creating pending transaction and showing deposit address...");
+    console.log(`Creating pending transaction for $${topUpAmount.toFixed(2)} and showing deposit address...`);
     handleClose();
   };
 
@@ -521,18 +548,17 @@ const MembershipTopUpModal = () => {
     },
     {
       icon: <ZapIcon size={iconSize} />,
-      title: "Send Any Amount of Crypto",
-      description: "Deposit funds from your exchange or external wallet.",
+      title: "Send Crypto",
+      description: `Deposit at least $${topUpAmount.toFixed(2)} from your exchange or external wallet.`,
     },
     {
       icon: <CheckCircleIcon size={iconSize} />,
       title: "Membership Extended Instantly",
-      description:
-        "We auto-deduct the 10% discounted fee. Extra funds are stored as your wallet balance.",
+      description: `We'll auto-deduct the fee for your ${topUpDuration} top-up.`,
     },
   ];
 
-  if (!isVisible) return null;
+  if (!isOpen) return null;
 
   return (
     <div style={styles.overlay}>
@@ -542,17 +568,17 @@ const MembershipTopUpModal = () => {
             <div style={styles.titleGroup}>
               {view === "main" && (
                 <div style={styles.badge}>
-                  <span style={styles.badgeText}>SAVE 10% WITH CRYPTO</span>
+                  <span style={styles.badgeText}>{discountPercentage}% DISCOUNT APPLIED</span>
                 </div>
               )}
               <h2 style={styles.title}>
                 {view === "main"
-                  ? "Extend with a Simple Deposit"
-                  : "How It Works"}
+                  ? "Confirm Your Crypto Payment"
+                  : "How Crypto Payments Work"}
               </h2>
               <p style={styles.subtitle}>
                 {view === "main"
-                  ? "No full wallet setup required. Just send crypto."
+                  ? `Pay $${topUpAmount.toFixed(2)} for ${topUpDuration} membership.`
                   : "Answering your questions about the deposit process."}
               </p>
             </div>
@@ -580,7 +606,7 @@ const MembershipTopUpModal = () => {
             display: view === "main" ? "block" : "none",
           }}
         >
-          <MainView steps={steps} />
+          <MainView steps={steps} price={topUpAmount} duration={topUpDuration} />
         </div>
         <div
           style={{
@@ -605,7 +631,7 @@ const MembershipTopUpModal = () => {
                 style={{ ...styles.button, ...styles.primaryButton }}
                 onClick={handleContinue}
               >
-                Show My Deposit Address
+                Get Deposit Address
                 <ArrowRightIcon />
               </button>
             </>
