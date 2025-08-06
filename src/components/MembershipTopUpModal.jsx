@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
-import { Wallet, ArrowRight, CheckCircle, Info, X, Zap, CreditCard, Gift } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Wallet, ArrowRight, CheckCircle, Info, X, Zap, Unlock } from 'lucide-react';
 
 const MembershipTopUpModal = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isClosing, setIsClosing] = useState(false);
-  
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSmallMobile, setIsSmallMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsSmallMobile(window.innerWidth <= 480);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const styles = {
     overlay: {
       position: 'fixed',
@@ -15,25 +28,25 @@ const MembershipTopUpModal = () => {
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
       backdropFilter: 'blur(10px)',
       display: 'flex',
-      alignItems: 'flex-start',
+      alignItems: isMobile ? 'flex-start' : 'center',
       justifyContent: 'center',
       zIndex: 1000,
-      padding: '0',
+      padding: isMobile ? '0' : '20px',
       overflowY: 'auto',
     },
     modal: {
       backgroundColor: '#0f1318',
-      borderRadius: window.innerWidth <= 768 ? '0' : '24px',
+      borderRadius: isMobile ? '0' : '24px',
       maxWidth: '520px',
       width: '100%',
-      minHeight: window.innerWidth <= 768 ? '100vh' : 'auto',
+      minHeight: isMobile ? '100vh' : 'auto',
       border: '1px solid rgba(255, 255, 255, 0.1)',
       overflow: 'hidden',
       boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
-      margin: window.innerWidth <= 768 ? '0' : '20px auto',
+      margin: isMobile ? '0' : '20px auto',
     },
     header: {
-      padding: window.innerWidth <= 768 ? '20px 16px 16px' : '24px 24px 20px',
+      padding: isMobile ? '20px 16px 16px' : '24px 24px 20px',
       borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
       display: 'flex',
       justifyContent: 'space-between',
@@ -49,7 +62,7 @@ const MembershipTopUpModal = () => {
       padding: '4px 10px',
       backgroundColor: 'rgba(240, 184, 108, 0.15)',
       borderRadius: '8px',
-      marginBottom: window.innerWidth <= 768 ? '8px' : '12px',
+      marginBottom: isMobile ? '8px' : '12px',
     },
     badgeText: {
       fontSize: '12px',
@@ -59,7 +72,7 @@ const MembershipTopUpModal = () => {
       letterSpacing: '0.5px',
     },
     title: {
-      fontSize: window.innerWidth <= 768 ? '20px' : '24px',
+      fontSize: isMobile ? '20px' : '24px',
       fontWeight: '700',
       color: '#ffffff',
       marginBottom: '8px',
@@ -82,15 +95,15 @@ const MembershipTopUpModal = () => {
       transition: 'all 0.2s',
     },
     content: {
-      padding: window.innerWidth <= 768 ? '16px' : '24px',
+      padding: isMobile ? '16px' : '24px',
     },
     stepsContainer: {
-      marginBottom: '24px',
+      marginBottom: isMobile ? '16px' : '24px',
     },
     step: {
       display: 'flex',
-      gap: window.innerWidth <= 768 ? '12px' : '16px',
-      marginBottom: window.innerWidth <= 768 ? '16px' : '20px',
+      gap: isMobile ? '12px' : '16px',
+      marginBottom: isMobile ? '16px' : '20px',
       opacity: 0.5,
       transition: 'all 0.3s ease',
     },
@@ -101,9 +114,9 @@ const MembershipTopUpModal = () => {
       opacity: 0.7,
     },
     stepIcon: {
-      width: window.innerWidth <= 768 ? '40px' : '48px',
-      height: window.innerWidth <= 768 ? '40px' : '48px',
-      borderRadius: window.innerWidth <= 768 ? '10px' : '12px',
+      width: isMobile ? '40px' : '48px',
+      height: isMobile ? '40px' : '48px',
+      borderRadius: isMobile ? '10px' : '12px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -127,29 +140,29 @@ const MembershipTopUpModal = () => {
       flex: 1,
     },
     stepTitle: {
-      fontSize: window.innerWidth <= 768 ? '15px' : '16px',
+      fontSize: isMobile ? '15px' : '16px',
       fontWeight: '600',
       color: '#ffffff',
       marginBottom: '4px',
     },
     stepDescription: {
-      fontSize: window.innerWidth <= 768 ? '12px' : '13px',
+      fontSize: isMobile ? '12px' : '13px',
       color: '#64748b',
       lineHeight: '1.4',
     },
     connector: {
       width: '2px',
-      height: window.innerWidth <= 768 ? '16px' : '20px',
+      height: isMobile ? '16px' : '20px',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      marginLeft: window.innerWidth <= 768 ? '19px' : '23px',
-      marginTop: window.innerWidth <= 768 ? '-16px' : '-20px',
+      marginLeft: isMobile ? '19px' : '23px',
+      marginTop: isMobile ? '-16px' : '-20px',
       marginBottom: '0',
     },
     infoBox: {
       backgroundColor: 'rgba(59, 130, 246, 0.1)',
       borderRadius: '12px',
-      padding: window.innerWidth <= 768 ? '14px' : '16px',
-      marginBottom: window.innerWidth <= 768 ? '16px' : '24px',
+      padding: isMobile ? '14px' : '16px',
+      marginBottom: '12px',
       border: '1px solid rgba(59, 130, 246, 0.2)',
     },
     infoBoxHeader: {
@@ -164,7 +177,7 @@ const MembershipTopUpModal = () => {
       marginBottom: '8px',
     },
     infoText: {
-      fontSize: '13px',
+      fontSize: isMobile ? '12px' : '13px',
       color: '#94a3b8',
       lineHeight: '1.5',
     },
@@ -173,18 +186,18 @@ const MembershipTopUpModal = () => {
       fontWeight: '600',
     },
     footer: {
-      padding: window.innerWidth <= 768 ? '16px' : '20px 24px',
+      padding: isMobile ? '16px' : '20px 24px',
       borderTop: '1px solid rgba(255, 255, 255, 0.05)',
       display: 'flex',
-      gap: window.innerWidth <= 768 ? '8px' : '12px',
-      flexDirection: window.innerWidth <= 480 ? 'column' : 'row',
+      gap: isMobile ? '8px' : '12px',
+      flexDirection: isSmallMobile ? 'column' : 'row',
     },
     button: {
       flex: 1,
-      padding: window.innerWidth <= 768 ? '12px 20px' : '14px 24px',
+      padding: isMobile ? '12px 20px' : '14px 24px',
       borderRadius: '12px',
       border: 'none',
-      fontSize: window.innerWidth <= 768 ? '14px' : '15px',
+      fontSize: isMobile ? '14px' : '15px',
       fontWeight: '600',
       cursor: 'pointer',
       transition: 'all 0.2s',
@@ -192,7 +205,7 @@ const MembershipTopUpModal = () => {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '8px',
-      width: window.innerWidth <= 480 ? '100%' : 'auto',
+      width: isSmallMobile ? '100%' : 'auto',
     },
     primaryButton: {
       backgroundColor: '#f0b86c',
@@ -205,31 +218,31 @@ const MembershipTopUpModal = () => {
     },
   };
 
-  const iconSize = window.innerWidth <= 768 ? 20 : 24;
-  
+  const iconSize = isMobile ? 20 : 24;
+
   const steps = [
     {
       icon: <Wallet size={iconSize} color="#f0b86c" />,
-      title: 'Add funds to your TRW Wallet',
-      description: 'Deposit crypto to your wallet using any supported network',
+      title: 'Deposit to your wallet address',
+      description: 'Send crypto directly to your personal TRW deposit address',
       status: currentStep >= 0 ? 'active' : 'default',
     },
     {
       icon: <Zap size={iconSize} color="#f0b86c" />,
-      title: 'Wallet activation',
-      description: 'We\'ll cover the network fee and activate your wallet instantly',
+      title: 'Instant membership extension',
+      description: 'We\'ll automatically deduct the membership fee from your deposit',
       status: currentStep >= 1 ? 'active' : 'default',
     },
     {
-      icon: <CreditCard size={iconSize} color="#f0b86c" />,
-      title: 'Automatic membership extension',
-      description: 'Your membership will be extended immediately',
+      icon: <CheckCircle size={iconSize} color="#10b981" />,
+      title: 'Extension confirmed',
+      description: 'Your membership is extended and any remaining balance is saved',
       status: currentStep >= 2 ? 'active' : 'default',
     },
     {
-      icon: <Gift size={iconSize} color="#10b981" />,
-      title: 'Activation fee credited back',
-      description: 'The activation fee will be returned to your wallet as a courtesy',
+      icon: <Unlock size={iconSize} color="#a855f7" />,
+      title: 'Unlock full wallet access',
+      description: 'Complete wallet setup anytime to access your funds and features',
       status: currentStep >= 3 ? 'active' : 'default',
     },
   ];
@@ -252,11 +265,11 @@ const MembershipTopUpModal = () => {
           <div style={styles.headerContent}>
             <div style={styles.badge}>
               <Zap size={14} />
-              <span style={styles.badgeText}>New Wallet Feature</span>
+              <span style={styles.badgeText}>Instant Top-Up</span>
             </div>
-            <h2 style={styles.title}>Top Up with TRW Wallet</h2>
+            <h2 style={styles.title}>Top Up with Crypto</h2>
             <p style={styles.subtitle}>
-              Extend your membership instantly using our built-in crypto wallet
+              Deposit directly to extend membership - no wallet setup required
             </p>
           </div>
           <button 
@@ -309,15 +322,23 @@ const MembershipTopUpModal = () => {
             <div style={styles.infoBoxHeader}>
               <Info size={20} color="#3b82f6" style={{ flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <h4 style={styles.infoTitle}>Important Information</h4>
+                <h4 style={styles.infoTitle}>Start Immediately</h4>
                 <p style={styles.infoText}>
-                  The wallet activation fee is <span style={styles.highlight}>completely free</span> for 
-                  membership extensions. We'll cover the network fee upfront and credit it back to your 
-                  wallet immediately after activation. This one-time setup enables instant future top-ups.
+                  <span style={styles.highlight}>No wallet setup required.</span> Simply deposit crypto to 
+                  your personal address and we'll automatically extend your membership.
                 </p>
-                <p style={{...styles.infoText, marginTop: '12px'}}>
-                  <span style={{fontWeight: '600'}}>Changed your mind?</span> You can cancel the pending 
-                  top-up transaction anytime from your wallet's transaction history before it processes.
+              </div>
+            </div>
+          </div>
+
+          <div style={{...styles.infoBox, backgroundColor: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.2)'}}>
+            <div style={styles.infoBoxHeader}>
+              <Unlock size={20} color="#a855f7" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <h4 style={{...styles.infoTitle, color: '#a855f7'}}>After Extending</h4>
+                <p style={styles.infoText}>
+                  Complete wallet activation anytime to access your remaining balance, send funds to 
+                  friends, and unlock all wallet features. <span style={{fontWeight: '600'}}>Completely optional.</span>
                 </p>
               </div>
             </div>
@@ -338,7 +359,7 @@ const MembershipTopUpModal = () => {
             onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e0a85c'}
             onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f0b86c'}
           >
-            Continue to Wallet
+            Get Deposit Address
             <ArrowRight size={18} />
           </button>
         </div>
